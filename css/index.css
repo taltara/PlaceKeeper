@@ -1,0 +1,136 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+/* NAVBAR */
+
+nav {
+    position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+}
+
+.nav-item {
+    flex-grow: 1;
+    border: 1px solid;
+    padding: 1rem;
+    cursor: pointer;
+    background-color: rgba(192, 192, 192);
+    color: rgba(0, 0, 0, 0.5);
+    font-size: larger;
+    transition: ease-in 0.2s;
+    text-decoration: none;
+    width: 1rem;
+}
+
+.nav-item:hover {
+    background-color: yellow;
+    color: rgba(0, 0, 0, 0.75);
+    z-index: 1;
+    transform: scale(1.1);
+}
+
+.nav-selected {
+    background-color: limegreen;
+    color: rgba(0, 0, 0, 1);
+    font-weight: 700;
+}
+
+/* HOME */
+
+.main-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+.main-intro .headline {
+    font-weight: 700;
+    font-size: xx-large;
+}
+
+.main-intro .secondary {
+    font-size: x-large;
+}
+
+.main-intro img {
+    height: 10rem;
+}
+
+.home-info {
+
+    width: 100%;
+}
+
+.dailyForecast {
+
+    padding: 1rem;
+    width: 90%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: auto;
+    background-color: aliceblue;
+    transition: ease-in 0.3s;
+    opacity: 0;
+}
+
+.show-forecast {
+
+    opacity: 1;
+}
+
+.hor-info {
+
+    font-weight: 700;
+}
+
+/* MAP */
+
+#map {
+    height: 40vh;
+}
+
+/* PREFERENCES */
+
+.main-prefs {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+}
+
+.main-prefs-item {
+    
+    justify-content: space-between;
+    border: 1px dashed;
+    padding: 1rem;
+    /* align-items: center; */
+
+}
+
+#frm-pref-page, #frm-pref-date {
+    /* padding: 1rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    min-height: 7rem;
+}
+
+#frm-pref-page button, #frm-pref-date button {
+    width: fit-content;
+    align-self: center;
+}
+
+.pref-bgc span, .pref-tc span, .pref-date span  {
+
+    font-weight: 700;
+    margin-right: 0.5rem;
+}

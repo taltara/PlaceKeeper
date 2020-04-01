@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- HOME -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Place Keeper</title>
+</head>
+<body onload="onInit(true)">
+    <nav>
+        <a class="nav-item nav-home nav-selected" href="index.html">Home</a>
+        <a class="nav-item nav-map" href="map.html">Map</a>
+        <a class="nav-item nav-preferences" href="user-prefs.html">Customize</a>
+    </nav>
+
+    <main class="main-intro">
+        <p class="headline">Welcome to 'Place Keeper'!</p>
+        <img src="images/marker.png">
+        <p class="secondary">Feel free to <a href="user-prefs.html">Customize</a> your own preferences, or view your <a href="map.html">kept places with a Map</a>!</p>
+    </main>
+
+    <section class="home-info">
+
+        <div class="dailyForecast">
+            
+        </div>
+
+    </section>
+
+    <script src="js/storageService.js"></script>
+    <script src="js/placeService.js"></script>
+    <script src="js/userPrefService.js"></script>
+    <script src="js/utilService.js"></script>
+</body>
+</html>
