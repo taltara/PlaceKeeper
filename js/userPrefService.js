@@ -6,27 +6,26 @@ var gZodiac;
 const KEYp = 'prefData';
 var gUserData;
 
-async function onInit(isHome) {
+async function onInit(local = '') {
 
     var initialPreferences = loadFromStorage(KEYp);
 
-    if(initialPreferences) {
+    if (initialPreferences) {
 
-        if(initialPreferences.gPref != undefined) {
+        if (initialPreferences.gPref != undefined) {
 
-            document.body.style.backgroundColor = initialPreferences.gPref.bgc;
-            document.body.style.color = initialPreferences.gPref.textColor;
+            setUserPrefChanges(initialPreferences.gPref);
         }
 
-        if(isHome) {
+        if (local === 'home') {
 
             var elHorForecast = document.querySelector('.dailyForecast');
-           
 
-            if(initialPreferences.gZodiac != undefined) {
+
+            if (initialPreferences.gZodiac != undefined) {
 
                 await getAstrologyForecast(initialPreferences.gZodiac);
-                
+
                 elHorForecast.innerHTML = `
                 <h1>Your Horoscope:</h1>
                 <h2>${capitalizeFirstLetter(initialPreferences.gZodiac)}</h2>
@@ -39,16 +38,44 @@ async function onInit(isHome) {
                 <p><span class="hor-info">Lucky Time: </span>${gForecast['lucky_time']}</p>
                 `
 
-                elHorForecast.classList.add('show-forecast');
+                elHorForecast.classList.add('show');
             } else {
-        
+
                 elHorForecast.innerHTML = '';
             }
-    
-            
 
         }
     }
+
+    if (local === 'map') {
+
+        gLocations = loadFromStorage(KEY);
+        renderFavoritePlaces();
+
+    } else if (local === 'user-pref') {
+
+        gUserData = loadFromStorage(KEYp);
+        if (gUserData) {
+
+            gZodiac = gUserData.gZodiac;
+            gPref = gUserData.gPref;
+        }
+
+        setTimeout(() => {
+            
+            var allSettings = document.querySelectorAll('.preference-box');
+            allSettings.forEach(setting => {
+
+                setting.style.opacity = '1';
+            })
+        }, 200);
+    }
+}
+
+function setUserPrefChanges(preferences) {
+
+    document.body.style.backgroundColor = preferences.bgc;
+    document.body.style.color = preferences.textColor;
 }
 
 function capitalizeFirstLetter(string) {
@@ -57,7 +84,7 @@ function capitalizeFirstLetter(string) {
 
 function _savePreferencesToStorage() {
 
-    gUserData = {gPref, gZodiac};
+    gUserData = { gPref, gZodiac };
     saveToStorage(KEYp, gUserData);
 }
 
@@ -69,28 +96,27 @@ function onColorPrefChange(event) {
     var elNewBgc = document.querySelector('input[name = "bgc"]');
     var elNewTc = document.querySelector('input[name = "tc"]');
 
-    console.log(elNewBgc.value, elNewTc.value);
-
     gPref = { bgc: elNewBgc.value, textColor: elNewTc.value };
-
+    setUserPrefChanges(gPref);
     _savePreferencesToStorage();
 }
 
 async function onDatePrefChange(event, hasZodiac = null) {
 
-    if(event) event.preventDefault();
+    if (event) event.preventDefault();
 
-    // if(!hasZodiac) {
 
-        var elNewDate = document.querySelector('input[name = "dob"]');
+    var elNewDate = document.querySelector('input[name = "dob"]');
+
+    // console.log('ENTERED', elNewDate.value);
+    gZodiac = zodiacSignHelper(elNewDate.value);
+    // console.log(gZodiac, " - ", elNewDate.value);
+    if (gZodiac === undefined) return;
     
-        gZodiac = zodiacSignHelper(elNewDate.value);
-        console.log(gZodiac, " - ", elNewDate.value);
 
-    // }
 
     await getAstrologyForecast(gZodiac);
-    
+
     _savePreferencesToStorage();
 }
 
@@ -118,11 +144,11 @@ async function getAstrologyForecast(zodiac) {
         method: 'POST'
     })
         .then(response => response.json())
-        .then(json =>{
+        .then(json => {
             // console.log(json);
             gForecast = json;
         });
-        // return res;
+    // return res;
 }
 
 

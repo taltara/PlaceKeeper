@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- MAP -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="css/index.css">
     <title>Place Keeper</title>
 </head>
-<body onload="onInit()">
+
+<body onload="onInit('map')">
     <nav>
         <a class="nav-item nav-home" href="index.html">Home</a>
         <a class="nav-item nav-map nav-selected" href="map.html">Map</a>
@@ -16,12 +19,24 @@
     </nav>
 
     <main id="map"></main>
+    <img src="images/location.png" class="current-location" onclick="getPosition()">
+    <div class="error-input"></div>
+
+    <section class="favorites-area">
+
+        <h1>Your Favorite Places</h1>
+        <div class="fav-locations">
+    
+        </div>
+
+    </section>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhs5CgUBpYIb22Hm2DV_ESjLsOKSDnQpU&callback=initMap"
-    async defer></script>
+        async defer></script>
     <script src="js/storageService.js"></script>
     <script src="js/placeService.js"></script>
     <script src="js/userPrefService.js"></script>
     <script src="js/utilService.js"></script>
 </body>
+
 </html>
