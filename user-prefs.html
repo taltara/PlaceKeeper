@@ -16,6 +16,7 @@
         <a class="nav-item nav-preferences nav-selected" href="user-prefs.html">Customize</a>
     </nav>
     <h1 class="settings-title">Make It Your Own</h1>
+    <h2 class="settings-message">Success!</h2>
     <main class="main-prefs">
 
         <div class="preference-box">
@@ -32,7 +33,7 @@
 
             <p>Set Your Homepage Horoscope</p>
             <form id="frm-pref-date" class="main-prefs-item">
-                <div class="pref-date"><span>Date of Birth:</span><input type="date" id="dob" name="dob" required></div>
+                <div class="pref-date"><span>Date of Birth:</span><input type="date" id="dob" name="dob"></div>
                 <button onclick="onDatePrefChange(event)">Save</button> 
             </form>
 
@@ -45,6 +46,8 @@
 
     <script src="js/storageService.js"></script>
     <script src="js/placeService.js"></script>
+    <script src="js/placeController.js"></script>
+    <script src="js/userPrefController.js"></script>
     <script src="js/userPrefService.js"></script>
     <script src="js/utilService.js"></script>
 </body>

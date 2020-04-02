@@ -6,80 +6,12 @@ var gZodiac;
 const KEYp = 'prefData';
 var gUserData;
 
-async function onInit(local = '') {
 
-    var initialPreferences = loadFromStorage(KEYp);
-
-    if (initialPreferences) {
-
-        if (initialPreferences.gPref != undefined) {
-
-            setUserPrefChanges(initialPreferences.gPref);
-        }
-
-        if (local === 'home') {
-
-            var elHorForecast = document.querySelector('.dailyForecast');
-
-
-            if (initialPreferences.gZodiac != undefined) {
-
-                await getAstrologyForecast(initialPreferences.gZodiac);
-
-                elHorForecast.innerHTML = `
-                <h1>Your Horoscope:</h1>
-                <h2>${capitalizeFirstLetter(initialPreferences.gZodiac)}</h2>
-                <p><span class="hor-info">Date Range: </span>${gForecast['date_range']}</p>
-                <p><span class="hor-info">Horoscope: </span>${gForecast['description']}</p>
-                <p><span class="hor-info">Compatibility: </span>${gForecast['compatibility']}</p>
-                <p><span class="hor-info">Mood: </span>${gForecast['mood']}</p>
-                <p><span class="hor-info">Color: </span>${gForecast['color']}</p>
-                <p><span class="hor-info">Lucky #: </span>${gForecast['lucky_number']}</p>
-                <p><span class="hor-info">Lucky Time: </span>${gForecast['lucky_time']}</p>
-                `
-
-                elHorForecast.classList.add('show');
-            } else {
-
-                elHorForecast.innerHTML = '';
-            }
-
-        }
-    }
-
-    if (local === 'map') {
-
-        gLocations = loadFromStorage(KEY);
-        renderFavoritePlaces();
-
-    } else if (local === 'user-pref') {
-
-        gUserData = loadFromStorage(KEYp);
-        if (gUserData) {
-
-            gZodiac = gUserData.gZodiac;
-            gPref = gUserData.gPref;
-        }
-
-        setTimeout(() => {
-            
-            var allSettings = document.querySelectorAll('.preference-box');
-            allSettings.forEach(setting => {
-
-                setting.style.opacity = '1';
-            })
-        }, 200);
-    }
-}
 
 function setUserPrefChanges(preferences) {
 
     document.body.style.backgroundColor = preferences.bgc;
     document.body.style.color = preferences.textColor;
-}
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 function _savePreferencesToStorage() {
@@ -88,43 +20,6 @@ function _savePreferencesToStorage() {
     saveToStorage(KEYp, gUserData);
 }
 
-
-function onColorPrefChange(event) {
-
-    event.preventDefault();
-
-    var elNewBgc = document.querySelector('input[name = "bgc"]');
-    var elNewTc = document.querySelector('input[name = "tc"]');
-
-    gPref = { bgc: elNewBgc.value, textColor: elNewTc.value };
-    setUserPrefChanges(gPref);
-    _savePreferencesToStorage();
-}
-
-async function onDatePrefChange(event, hasZodiac = null) {
-
-    if (event) event.preventDefault();
-
-
-    var elNewDate = document.querySelector('input[name = "dob"]');
-
-    // console.log('ENTERED', elNewDate.value);
-    gZodiac = zodiacSignHelper(elNewDate.value);
-    // console.log(gZodiac, " - ", elNewDate.value);
-    if (gZodiac === undefined) return;
-    
-
-
-    await getAstrologyForecast(gZodiac);
-
-    _savePreferencesToStorage();
-}
-
-function setHomepageIndex() {
-
-    var elForecast = document.querySelector('.dailyForecast');
-
-}
 
 // Cleans birth date and retreives zodiac sun sign for astrology forecast
 function zodiacSignHelper(newDate) {
@@ -150,7 +45,6 @@ async function getAstrologyForecast(zodiac) {
         });
     // return res;
 }
-
 
 
 // Returns zodiac sun symbol
@@ -214,7 +108,6 @@ function determineZodiacByDate(date) {
             }
             break;
 
-
         case 8: // august
             if (date.day >= 23) {
                 return 'virgo';
@@ -222,7 +115,6 @@ function determineZodiacByDate(date) {
                 return 'leo';
             }
             break;
-
 
         case 9: // september
             if (date.day >= 23) {
